@@ -1,3 +1,6 @@
 [submodule "backend-rentaride2"]
 	path = backend-rentaride2
 	url = https://github.com/samucorre/backend-rentaride2
+[submodule "frontend-rentaride2"]
+	path = frontend-rentaride2
+	url = https://github.com/samucorre/frontend-rentaride2
