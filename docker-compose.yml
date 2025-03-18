@@ -1,0 +1,40 @@
+services:
+  # Elimina el servicio postgres si no lo vas a usar
+  
+  backend:
+    build:
+      context: ./backend-rentaride2
+      dockerfile: Dockerfile
+    container_name: rentaride2back
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://host.docker.internal:5433/rentaride2
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: 620759082
+      SPRING_PROFILES_ACTIVE: docker
+    ports:
+      - "8080:8080"
+    volumes:
+      - backend_uploads:/app/uploads
+    networks:
+      - app-network
+
+  frontend:
+    build:
+      context: ./frontend-rentaride2
+      dockerfile: Dockerfile
+    container_name: rentaride2front
+    depends_on:
+      - backend
+    ports:
+      - "80:80"
+    environment:
+      BACKEND_API_URL: http://localhost:8080
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  backend_uploads:
